@@ -14,7 +14,6 @@
 		89865DA52D0CCB7000142D82 /* Exceptions for "Nearby" folder in "Nearby" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
-				Assets.xcassets,
 				Info.plist,
 			);
 			target = 89865D922D0CCB6E00142D82 /* Nearby */;
