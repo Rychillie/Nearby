@@ -9,11 +9,10 @@ import Foundation
 import UIKit
 
 class FlowController {
-    
     private var navigationController: UINavigationController?
     
     public init() {
-
+        
     }
     
     func start() -> UINavigationController? {
@@ -30,6 +29,14 @@ extension FlowController: SplashFlowDelegate {
     func decideNavigationFlow() {
         let contentView = WelcomeView()
         let welcomeViewController = WelcomeViewController(contentView: contentView)
+        welcomeViewController.flowDelegate = self
         navigationController?.pushViewController(welcomeViewController, animated: true)
+    }
+}
+
+extension FlowController: WelcomeFlowDelegate {
+    func goToHome() {
+        let homeViewController = HomeViewController()
+        navigationController?.pushViewController(homeViewController, animated: true)
     }
 }

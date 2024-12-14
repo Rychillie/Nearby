@@ -9,6 +9,8 @@ import Foundation
 import UIKit
 
 class WelcomeView: UIView {
+    var didTapButton: (() -> Void?)?
+    
     private let logoImageView: UIImageView = {
         let image = UIImageView(image: UIImage(named: "logo"))
         image.contentMode = .scaleAspectFit
@@ -57,6 +59,7 @@ class WelcomeView: UIView {
         button.titleLabel?.font = Typography.action
         button.setTitleColor(Colors.gray100, for: .normal)
         button.layer.cornerRadius = 10
+        button.addTarget(self, action: #selector(didTap), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
@@ -110,25 +113,22 @@ class WelcomeView: UIView {
         ])
     }
     
+    @objc
+    private func didTap() {
+        didTapButton?()
+    }
+    
     private func setupTips() {
-        guard let mapIcon = UIImage(named: "mapIcon") else { return }
-        let tip1 = TipsView(
-            icon: mapIcon,
-            title: "Encontre estabelecimentos",
-            description: "Veja locais perto de você que são parceiros Nearby"
-        )
+        guard let icon1 = UIImage(named: "mapIcon") else { return }
+        let tip1 = TipsView(icon: icon1, title: "Encontre estabelecimentos", description: "Veja locais perto de você que são parceiros Nearby")
         
-        let tip2 = TipsView(
-            icon: UIImage(named: "qrcode") ?? UIImage(),
-            title: "Ative o cupom com QR Code",
-            description: "Escaneie o código no estabelecimento para usar o benefício"
-        )
+        let tip2 = TipsView(icon: UIImage(named: "qrcode") ?? UIImage(),
+                            title: "Ative o cupom com QR Code",
+                            description: "Escaneie o código no estabelecimento para usar o benefício")
         
-        let tip3 = TipsView(
-            icon: UIImage(named: "ticket")!,
-            title: "Garanta vantagens perto de você",
-            description: "Ative cupons onde estiver, em diferentes tipos de estabelecimento"
-        )
+        let tip3 = TipsView(icon: UIImage(named: "ticket") ?? UIImage(),
+                            title: "Garanta vantagens perto de você",
+                            description: "Ative cupons onde estiver, em diferentes tipos de estabelecimento")
         
         tipsStackView.addArrangedSubview(tip1)
         tipsStackView.addArrangedSubview(tip2)
